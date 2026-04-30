@@ -1,0 +1,29 @@
+# ── Web scraping
+selenium
+webdriver-manager
+beautifulsoup4
+requests
+fake-useragent
+lxml
+
+# ── Data handling
+pandas
+numpy
+
+# ── EDA & visualisation
+matplotlib
+seaborn
+
+# ── ML & explainability
+scikit-learn
+xgboost
+shap
+joblib
+
+# ── App & deployment 
+streamlit
+
+setuptools
+
+
+-e .

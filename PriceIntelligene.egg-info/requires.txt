@@ -1,0 +1,16 @@
+selenium
+webdriver-manager
+beautifulsoup4
+requests
+fake-useragent
+lxml
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn
+xgboost
+shap
+joblib
+streamlit
+setuptools

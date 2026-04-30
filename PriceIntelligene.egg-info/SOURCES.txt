@@ -1,0 +1,9 @@
+setup.py
+PriceIntelligene.egg-info/PKG-INFO
+PriceIntelligene.egg-info/SOURCES.txt
+PriceIntelligene.egg-info/dependency_links.txt
+PriceIntelligene.egg-info/requires.txt
+PriceIntelligene.egg-info/top_level.txt
+src/__init__.py
+src/scraping/__init__.py
+src/scraping/flipkart.py
