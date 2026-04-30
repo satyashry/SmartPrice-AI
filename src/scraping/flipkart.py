@@ -58,7 +58,7 @@ def save_data(brands, original, current):
         "current_price": current
     })
 
-    folder_path = Path('notebook/data')
+    folder_path = Path(r'notebook\data\raw')
     folder_path.mkdir(parents=True, exist_ok=True)
 
     file_path = folder_path/'laptops_raw.csv'
