@@ -16,8 +16,13 @@ class DataTransformationConfig:
     preprocessor_obj_file_path = os.path.join('artifacts','preprocessor.pkl')
 
 class DataTransformation:
+
+
     def __init__(self):
         self.data_transformation_config = DataTransformationConfig()
+
+
+
 
     def get_transformer_object(self):
         '''
@@ -54,6 +59,9 @@ class DataTransformation:
 
         except Exception as e:
             raise CustomException(e, sys)
+        
+
+
 
     def initiate_data_transformation(self,train_path,test_path):
         try :
@@ -67,15 +75,17 @@ class DataTransformation:
 
             target_column_name = "current_price"
            
-
+            # Training data
             input_feature_train_df = train_df.drop(columns=[target_column_name])
             target_feature_train_df = train_df[target_column_name]
 
+            # Testing data
             input_feature_test_df = test_df.drop(columns=[target_column_name])
             target_feature_test_df = test_df[target_column_name]
 
             logging.info("Applying preprocessing oject on training and testing Dataframe...")
 
+            # Transformation done here 
             input_feature_train_arr = preprocessor_obj.fit_transform(input_feature_train_df)
             input_feature_test_arr = preprocessor_obj.transform(input_feature_test_df)
 
@@ -89,10 +99,10 @@ class DataTransformation:
 
             logging.info("saved Preprocessing object.")
 
-
+            # For saving the object
             save_object (
                 file_path = self.data_transformation_config.preprocessor_obj_file_path,
-                obj =  preprocessor_obj # used for saving the object
+                obj =  preprocessor_obj 
             )
 
             return (
