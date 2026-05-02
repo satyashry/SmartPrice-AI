@@ -5,7 +5,7 @@ from src.logger import logging
 from src.exception import CustomException
 from dataclasses import dataclass
 from src.components.data_transformation import DataTransformation,DataTransformationConfig
-
+from src.components.model_trainer import ModelTrainerConfig,ModelTrainer
 
 @dataclass
 class DataIngestionConfig:
@@ -21,7 +21,7 @@ class DataIngestion :
         logging.info("Entered The Dataingestion Method")
 
         try : 
-            df = pd.read_csv('notebook\data\processed\laptops_cleaned.csv')
+            df = pd.read_csv('notebook/data/processed/laptops_cleaned.csv')
             logging.info('Reading the Dataset ...')
 
             os.makedirs(os.path.dirname(self.ingestion_config.train_data_path),exist_ok=True)
@@ -42,13 +42,14 @@ class DataIngestion :
         except Exception as e:
             raise CustomException(e,sys)
 
-if __name__== "__main__" :
-    obj = DataIngestion()
-    train_data,test_data = obj.initiate_data_ingestion()
-
+if __name__ == "__main__":
     obj = DataIngestion()
     train_data, test_data = obj.initiate_data_ingestion()
-    
+
     data_transformation = DataTransformation()
     train_arr, test_arr, _ = data_transformation.initiate_data_transformation(train_data, test_data)
     print("Transformation done ✅")
+
+    model_trainer = ModelTrainer()
+    name, r2 = model_trainer.initiate_model_trainer(train_arr, test_arr)
+    print(f"The most effective model has been identified 🤖")

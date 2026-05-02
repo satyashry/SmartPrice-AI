@@ -12,5 +12,6 @@ scikit-learn
 xgboost
 shap
 joblib
+lightgbm
 streamlit
 setuptools

@@ -3,6 +3,7 @@ Name: PriceIntelligene
 Version: 0.0.1
 Author: Satya
 Author-email: psatyashry@gmail.com
+License-File: LICENSE
 Requires-Dist: selenium
 Requires-Dist: webdriver-manager
 Requires-Dist: beautifulsoup4
@@ -17,8 +18,10 @@ Requires-Dist: scikit-learn
 Requires-Dist: xgboost
 Requires-Dist: shap
 Requires-Dist: joblib
+Requires-Dist: lightgbm
 Requires-Dist: streamlit
 Requires-Dist: setuptools
 Dynamic: author
 Dynamic: author-email
+Dynamic: license-file
 Dynamic: requires-dist
