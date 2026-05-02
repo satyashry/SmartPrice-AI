@@ -115,6 +115,10 @@ streamlit run app.py
 
  ✅ Laptop price prediction
  ✅ Live deployment on Render
+ 📱 Smartphone price prediction
+ ⌚ Smartwatch price prediction
+ 🔍 SHAP explainability in UI
+ 🏠 Multi-category home page
 
 
 🧠 What I Learned
@@ -127,4 +131,4 @@ Deploying a live ML app end to end
 
 
 
-💬 "No Kaggle datasets. No copy-paste tutorials. Real data scraped by hand, cleaned from scratch, and deployed live — built in 5 days."
+💬 "No Kaggle datasets. No copy-paste tutorials. Real data scraped by hand, cleaned from scratch, and deployed live — built in 4 days."
