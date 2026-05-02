@@ -10,10 +10,14 @@ from sklearn.metrics import (
 from sklearn.model_selection import GridSearchCV
 import numpy as np
 
+
 def save_object(file_path, obj):
-    os.makedirs(os.path.dirname(file_path), exist_ok=True)
-    with open(file_path, "wb") as f:
-        joblib.dump(obj, f)
+    try:
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        with open(file_path, "wb") as f:
+            joblib.dump(obj, f)
+    except Exception as e:
+        raise CustomException(e, sys)
 
 def evaluate_models(X_train, y_train, X_test, y_test, models, param):
     try:
@@ -63,5 +67,12 @@ def evaluate_models(X_train, y_train, X_test, y_test, models, param):
 
         return report, best_models
 
+    except Exception as e:
+        raise CustomException(e, sys)
+    
+def load_object(file_path):
+    try:
+        with open(file_path, "rb") as f:
+            return joblib.load(f)
     except Exception as e:
         raise CustomException(e, sys)
