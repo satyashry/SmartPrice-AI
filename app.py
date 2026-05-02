@@ -3,7 +3,21 @@ import pandas as pd
 from src.pipeline.predict_pipeline import PredictPipeline,CustomData
 
 st.set_page_config(page_title="Laptop Price Predictor", page_icon="💻")
+st.markdown("""
+    <style>
+    .stButton>button { 
+        width: 100%; 
+        background-color: #4CAF50; 
+        color: white; 
+        font-size: 18px; 
+        padding: 10px;
+        border-radius: 10px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
 st.title("💻 Laptop Price Intelligence Engine")
+st.write("Enter laptop specs to predict the fair market price")
 
 col1, col2 = st.columns(2)
 with col1:
@@ -15,20 +29,15 @@ with col1:
 with col2:
     processor = st.selectbox("Processor", ["Intel Core i5", "Intel Core Ultra", "Snapdragon X", "AMD Ryzen 5", "Intel Core i3", "Intel Core i7", "AMD Ryzen 7", "AMD Ryzen 3", "Intel Core i9"])
     graphics = st.selectbox("Graphics", ["Integrated", "6 GB Graphics", "4 GB Graphics", "8 GB Graphics", "2 GB Graphics", "AMD Radeon"])
-    original_price = st.number_input("Original Price (₹)", min_value=10000, max_value=500000, value=80000)
-    discount_pct = st.number_input("Discount %", min_value=0.0, max_value=95.0, value=10.0)
+    
 
 
-
-st.write("Enter laptop specs to predict the fair market price")
 
 if st.button("Predict Price 🔍"):
     data = CustomData(
         brand=brand,
         ram=ram,
         storage=storage,
-        original_price=original_price,
-        discount_price=discount_pct,
         processor=processor,
         graphics=graphics,
         os=os

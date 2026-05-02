@@ -29,7 +29,7 @@ class DataTransformation:
         Responsible for Data Transformation
         '''
         try :
-            numerical_columns = ["ram","storage","original_price","discount_price"]
+            numerical_columns = ["ram","storage"]
             categorical_columns = ["brand","os","graphics","processor"]
 
             num_pipeline = Pipeline(

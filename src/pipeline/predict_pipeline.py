@@ -24,8 +24,6 @@ class CustomData:
     def __init__(self,
         ram:int,
         storage:int,
-        original_price:int,
-        discount_price:int,
         brand:str,
         os:str,
         graphics:str,
@@ -34,11 +32,9 @@ class CustomData:
         self.brand =brand
         self.ram = ram
         self.storage = storage
-        self.original_price = original_price
         self.graphics = graphics
         self.processor = processor
         self.os = os
-        self.discount_price = discount_price 
 
     def get_data_as_dataframe (self):
         try :
@@ -47,11 +43,9 @@ class CustomData:
                    "brand":[self.brand],
                    "ram":[self.ram],
                    "storage":[self.storage],
-                   "original_price":[self.original_price],
                    "graphics": [self.graphics],
                    "processor":[self.processor],
-                    "os": [self.os],
-                    "discount_price":[self.discount_price]
+                    "os": [self.os]
                 }
 
             return pd.DataFrame(custom_data_input_dict)
