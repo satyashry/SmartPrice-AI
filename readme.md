@@ -1,134 +1,160 @@
-🧠 SmartPrice AI — Laptop Price Intelligence Engine
-Predicts fair market laptop prices from specs alone — trained on real Flipkart data scraped from scratch. No Kaggle. No shortcuts.
-🔗 Live Demo: smartprice-ai-fm1f.onrender.com
+# 🧠 SmartPrice AI
+### AI-Powered Laptop Price Intelligence Engine
 
-🎯 What is this?
-SmartPrice AI is a full end-to-end ML project built in 4 days from zero:
+> Predicts fair market prices for laptops based on specs — trained on real Flipkart data scraped from scratch.
 
-🕷️ Scrapes real Flipkart listings using Selenium — no pre-made datasets
-🧹 Cleans & engineers features from raw messy product names using regex
-🤖 Trains 6 ML models with GridSearchCV and auto-selects the best
-🚀 Deployed live as a web app anyone can use right now
+🔗 **Live Demo:** [smartprice-ai-fm1f.onrender.com](https://smartprice-ai-fm1f.onrender.com)
 
+---
 
-📁 Project Structure
+## What is this?
+
+SmartPrice AI is an end-to-end machine learning project that:
+1. **Scrapes real laptop listings** from Flipkart using Selenium
+2. **Cleans and engineers features** from raw product names using regex
+3. **Trains 6 ML models** and picks the best one automatically
+4. **Deploys as a live web app** where users enter specs and get a predicted price
+
+No Kaggle datasets. No tutorials. Built from scratch.
+
+---
+
+## Project Structure
+
+```
 SmartPrice-AI/
-│
-├── 📂 src/
-│   ├── 📂 components/
-│   │   ├── data_ingestion.py        ← loads CSV, creates train/test split
-│   │   ├── data_transformation.py   ← encodes categories, scales features
-│   │   └── model_trainer.py         ← trains 6 models, saves the best
-│   │
-│   ├── 📂 pipeline/
-│   │   ├── predict_pipeline.py      ← loads model + preprocessor, predicts
-│   │   └── train_pipeline.py        ← runs full pipeline in one command
-│   │
-│   ├── exception.py                 ← custom exception handler
-│   ├── logger.py                    ← logging
-│   └── utils.py                     ← save/load model, evaluate models
-│
-├── 📂 scraper/
-│   └── flipkart_scraper.py          ← Selenium + BeautifulSoup scraper
-│
-├── 📂 notebook/
-│   ├── 📂 data/
-│   │   ├── raw/laptops_raw.csv           ← 984 scraped rows
-│   │   └── processed/laptops_cleaned.csv ← 614 clean rows
-│   ├── data_cleaning.ipynb               ← cleaning + feature extraction
-│   └── eda/data_visual.ipynb             ← charts + insights
-│
-├── 📂 artifacts/
-│   ├── model.pkl          ← trained Random Forest model
-│   ├── preprocessor.pkl   ← fitted OrdinalEncoder + StandardScaler
+├── src/
+│   ├── components/
+│   │   ├── data_ingestion.py        # loads CSV, splits train/test
+│   │   ├── data_transformation.py   # encodes + scales features
+│   │   └── model_trainer.py         # trains 6 models, saves best
+│   ├── pipeline/
+│   │   ├── predict_pipeline.py      # loads model, predicts from input
+│   │   └── train_pipeline.py        # runs full training pipeline
+│   ├── exception.py                 # custom exception handler
+│   ├── logger.py                    # logging setup
+│   └── utils.py                     # save/load model, evaluate models
+├── notebook/
+│   ├── data/
+│   │   ├── raw/laptops_raw.csv           # scraped data (984 rows)
+│   │   └── processed/laptops_cleaned.csv # cleaned data (614 rows)
+│   ├── data_cleaning.ipynb               # cleaning notebook
+│   └── eda/data_visual.ipynb             # EDA + visualisations
+├── scraper/
+│   └── flipkart_scraper.py          # Selenium + BS4 scraper
+├── artifacts/
+│   ├── model.pkl                    # trained model
+│   ├── preprocessor.pkl             # fitted transformer
 │   ├── train.csv
 │   └── test.csv
-│
-├── app.py              ← Streamlit web app
-├── render.yaml         ← Render deployment config
+├── app.py                           # Streamlit web app
+├── render.yaml                      # Render deployment config
 ├── requirements.txt
 └── README.md
+```
 
-⚙️ How It Works
-🕷️ Step 1 — Web Scraping
+---
 
-Selenium opens a real Chrome browser and navigates Flipkart
-BeautifulSoup parses the HTML and extracts product data
-Scraped 984 laptops across 90 pages
-Collected: product name, original price, current price
+## How It Works
 
-🧹 Step 2 — Feature Engineering
-Raw product name from Flipkart:
+### Step 1 — Web Scraping
+- Selenium controls a real Chrome browser
+- BeautifulSoup parses the HTML
+- Scraped 984 products across 90 Flipkart pages
+- Extracted: product name, original price, current price
+
+### Step 2 — Feature Engineering
+Raw product name:
+```
 HP Victus AMD Ryzen 7 - (24 GB/1 TB SSD/Windows 11/8 GB NVIDIA)
-Extracted using regex into clean ML features:
-FeatureExtractedbrandHPram24 GBstorage1024 GBprocessorAMD Ryzen 7graphics8 GB GraphicsosWindows 11
-🤖 Step 3 — Model Training
-╔══════════════════════════════════════════════════════════╗
-║              MODEL COMPARISON RESULTS                    ║
-╠═══════════════════════╦══════════╦══════════╦═══════════╣
-║ Model                 ║ R² Score ║ MAE      ║ RMSE      ║
-╠═══════════════════════╬══════════╬══════════╬═══════════╣
-║ Linear Regression     ║  0.442   ║ ₹15,855  ║ ₹20,276   ║
-║ Ridge                 ║  0.441   ║ ₹15,847  ║ ₹20,279   ║
-║ KNN                   ║  0.678   ║  ₹7,996  ║ ₹15,393   ║
-║ XGBoost               ║  0.724   ║  ₹7,435  ║ ₹14,247   ║
-║ Gradient Boosting     ║  0.712   ║  ₹7,658  ║ ₹14,553   ║
-║ ✅ Random Forest      ║  0.743   ║  ₹6,768  ║ ₹13,747   ║  ← BEST
-╚═══════════════════════╩══════════╩══════════╩═══════════╝
-  Predicts from: RAM · Processor · Storage · Brand · OS · GPU
-🚀 Step 4 — Deployment
+```
+Extracted using regex:
 
-UI built with Streamlit
-Deployed on Render with render.yaml
+| Feature | Value |
+|---------|-------|
+| `brand` | HP |
+| `ram` | 24 GB |
+| `storage` | 1024 GB |
+| `processor` | AMD Ryzen 7 |
+| `graphics` | 8 GB Graphics |
+| `os` | Windows 11 |
 
+### Step 3 — Model Training
+6 models trained with GridSearchCV hyperparameter tuning:
 
-📊 Key EDA Insights
+| Model | R² Score | MAE |
+|-------|----------|-----|
+| Linear Regression | 0.442 | ₹15,855 |
+| Ridge | 0.441 | ₹15,847 |
+| KNN | 0.678 | ₹7,996 |
+| XGBoost | 0.724 | ₹7,435 |
+| Gradient Boosting | 0.712 | ₹7,658 |
+| **Random Forest** ✅ | **0.743** | **₹6,768** |
 
-💡 RAM is the #1 price driver — strongest correlation with price
-💸 Budget laptops (₹25k–₹50k) get aggressive discounts of 60–90%
-🏷️ Premium laptops (₹1L+) hold their MRP with under 20% discount
-💾 Storage has weaker price correlation than RAM
-🍎 Apple 24GB outlier (₹2.1L) kept — it's real premium pricing
+Best model selected and saved automatically.
 
+### Step 4 — Deployment
+- UI built with **Streamlit**
+- Deployed on **Render**
+- Live at: https://smartprice-ai-fm1f.onrender.com
 
-🛠️ Tech Stack
-LayerTools🕷️ ScrapingSelenium, BeautifulSoup4, fake-useragent🧹 DataPandas, NumPy, Regex📊 VisualisationMatplotlib, Seaborn🤖 MLScikit-learn, XGBoost, GridSearchCV🖥️ AppStreamlit☁️ DeployRender
+---
 
-🚀 Run Locally
-bash# Clone
+## Key EDA Insights
+
+- RAM is the strongest predictor of laptop price
+- Budget laptops (₹25k–₹50k) get higher discounts (60–90%)
+- Premium laptops (₹1L+) hold their price
+- Storage has lower correlation with price than RAM
+
+---
+
+## Tech Stack
+
+| Layer | Tools |
+|-------|-------|
+| Scraping | Selenium, BeautifulSoup4 |
+| Data | Pandas, NumPy |
+| Visualisation | Matplotlib, Seaborn |
+| ML | Scikit-learn, XGBoost, GridSearchCV |
+| App | Streamlit |
+| Deployment | Render |
+
+---
+
+## Run Locally
+
+```bash
 git clone https://github.com/yourusername/smartprice-ai.git
 cd smartprice-ai
-
-# Setup
 python -m venv .venv
-.venv\Scripts\activate        # Windows
-source .venv/bin/activate     # Mac/Linux
+.venv\Scripts\activate
 pip install -r requirements.txt
-
-# Train
 python src/pipeline/train_pipeline.py
-
-# Run app
 streamlit run app.py
+```
 
-🗺️ Roadmap
+---
 
- ✅ Laptop price prediction
- ✅ Live deployment on Render
- 📱 Smartphone price prediction
- ⌚ Smartwatch price prediction
- 🔍 SHAP explainability in UI
- 🏠 Multi-category home page
+## Roadmap
 
+- [x] Laptop price prediction
+- [x] Live deployment
+- [ ] Smartphone price prediction
+- [ ] Smartwatch price prediction
+- [ ] SHAP explainability in UI
+- [ ] Multi-category home page
 
-🧠 What I Learned
+---
 
-Building a real web scraper with Selenium + BeautifulSoup from scratch
-Extracting structured features from messy text using regex
-Writing production-grade ML pipelines with proper exception handling & logging
-Training and auto-comparing multiple models with GridSearchCV
-Deploying a live ML app end to end
+## What I Learned
 
+- Scraping real websites with Selenium + BeautifulSoup
+- Extracting structured features from messy text using regex
+- Building production ML pipelines with proper exception handling
+- Training and comparing multiple models automatically
+- Deploying a live ML app end to end
 
+---
 
-💬 "No Kaggle datasets. No copy-paste tutorials. Real data scraped by hand, cleaned from scratch, and deployed live — built in 4 days."
+> *"No Kaggle. No tutorials. Real data, real code, built from scratch in 4 days."*
