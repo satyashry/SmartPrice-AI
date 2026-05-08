@@ -96,7 +96,6 @@ Best model selected and saved automatically.
 ### Step 4 — Deployment
 - UI built with **Streamlit**
 - Deployed on **Render**
-- Live at: https://smartprice-ai-fm1f.onrender.com
 
 ---
 
